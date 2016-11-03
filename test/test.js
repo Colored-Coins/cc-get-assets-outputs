@@ -6,30 +6,13 @@ var assert = require('assert')
 var issuanceTx = {
   'vin': [
     {
-      'txid': '41f2d95cd99f7e60f207c65d9f7b286d45135cef77770335ea627d58ba22759a',
-      'vout': 0,
       'assets': []
     },
     {
-      'txid': '7ae25768d901a24d892bb68fb3eae9322858620d9664bb4afa84f5b68d2322ea',
-      'vout': 0,
       'assets': []
     }
   ],
-  'vout': [
-    {
-      'value': 3000,
-      'n': 0
-    },
-    {
-      'value': 0,
-      'n': 1
-    },
-    {
-      'value': 7000,
-      'n': 2
-    }
-  ],
+  'vout': [{},{},{}],
   'ccdata': [
     {
       'payments': [
@@ -55,7 +38,7 @@ var issuanceTx = {
           'percent': false
         }
       ],
-      'protocol': 17219,
+      'protocol': 0x4343,
       'version': 2,
       'type': 'issuance',
       'lockStatus': false,
@@ -69,13 +52,11 @@ var issuanceTx = {
 var transferTx = {
   'vin': [
     {
-      'txid': '41f2d95cd99f7e60f207c65d9f7b286d45135cef77770335ea627d58ba22759a',
-      'vout': 0,
       'assets': [
         {
           'assetId': 'A',
           'amount': 10,
-          'issueTxid': 'b7d00fcac7b5525c540b89b9e0829075b75f5b34a7a9608f49d743ce476bf6b6',
+          'issueTxid': 'aaa',
           'divisibility': 0,
           'lockStatus': false,
           'aggregationPolicy': 'aggregatable'
@@ -83,7 +64,7 @@ var transferTx = {
         {
           'assetId': 'A',
           'amount': 5,
-          'issueTxid': 'b7d00fcac7b5525c540b89b9e0829075b75f5b34a7a9608f49d743ce476bf6b6',
+          'issueTxid': 'aaa',
           'divisibility': 0,
           'lockStatus': false,
           'aggregationPolicy': 'aggregatable'
@@ -91,13 +72,11 @@ var transferTx = {
       ]
     },
     {
-      'txid': '7ae25768d901a24d892bb68fb3eae9322858620d9664bb4afa84f5b68d2322ea',
-      'vout': 0,
       'assets': [
         {
           'assetId': 'A',
           'amount': 6,
-          'issueTxid': 'b7d00fcac7b5525c540b89b9e0829075b75f5b34a7a9608f49d743ce476bf6b6',
+          'issueTxid': 'aaa',
           'divisibility': 0,
           'lockStatus': false,
           'aggregationPolicy': 'aggregatable'
@@ -105,20 +84,7 @@ var transferTx = {
       ]
     }
   ],
-  'vout': [
-    {
-      'value': 3000,
-      'n': 0
-    },
-    {
-      'value': 0,
-      'n': 1
-    },
-    {
-      'value': 7000,
-      'n': 2
-    }
-  ],
+  'vout': [{},{},{}],
   'ccdata': [
     {
       'payments': [
@@ -144,7 +110,7 @@ var transferTx = {
           'percent': false
         }
       ],
-      'protocol': 17219,
+      'protocol': 0x4343,
       'version': 1,
       'type': 'transfer',
       'multiSig': [
@@ -482,13 +448,11 @@ it('Transfer - should transfer remaining amounts to last output', function (done
   var tx = {
     'vin': [
       {
-        'txid': '41f2d95cd99f7e60f207c65d9f7b286d45135cef77770335ea627d58ba22759a',
-        'vout': 0,
         'assets': [
           {
             'assetId': 'A',
             'amount': 10,
-            'issueTxid': 'b7d00fcac7b5525c540b89b9e0829075b75f5b34a7a9608f49d743ce476bf6b6',
+            'issueTxid': 'aaa',
             'divisibility': 0,
             'lockStatus': false,
             'aggregationPolicy': 'aggregatable'
@@ -496,13 +460,11 @@ it('Transfer - should transfer remaining amounts to last output', function (done
         ]
       },
       {
-        'txid': 'ebb435529b45d9843d17ce61f95002ad675da9d2cef708dd2f858de47f7fb236',
-        'vout': 0,
         'assets': [
           {
             'assetId': 'B',
             'amount': 5,
-            'issueTxid': '63522845d294ee9b0188ae5cac91bf389a0c3723f084ca1025e7d9cdfe481ce1',
+            'issueTxid': 'bbb',
             'divisibility': 0,
             'lockStatus': false,
             'aggregationPolicy': 'aggregatable'
@@ -510,13 +472,11 @@ it('Transfer - should transfer remaining amounts to last output', function (done
         ]
       },
       {
-        'txid': '7ae25768d901a24d892bb68fb3eae9322858620d9664bb4afa84f5b68d2322ea',
-        'vout': 0,
         'assets': [
           {
             'assetId': 'C',
             'amount': 6,
-            'issueTxid': 'e79fc1dad370e628614702f048edc8e98829cf8ea8f6615db19f992b1be92e44',
+            'issueTxid': 'ccc',
             'divisibility': 0,
             'lockStatus': false,
             'aggregationPolicy': 'aggregatable'
@@ -524,20 +484,7 @@ it('Transfer - should transfer remaining amounts to last output', function (done
         ]
       }
     ],
-    'vout': [
-      {
-        'value': 3000,
-        'n': 0
-      },
-      {
-        'value': 0,
-        'n': 1
-      },
-      {
-        'value': 7000,
-        'n': 2
-      }
-    ],
+    'vout': [{},{},{}],
     'ccdata': [
       {
         'payments': [
@@ -563,7 +510,7 @@ it('Transfer - should transfer remaining amounts to last output', function (done
             'percent': false
           }
         ],
-        'protocol': 17219,
+        'protocol': 0x4343,
         'version': 1,
         'type': 'transfer',
         'multiSig': [
@@ -589,3 +536,225 @@ it('Transfer - should transfer remaining amounts to last output', function (done
   assert.equal(res[2][2].assetId, 'C')
   done()
 })
+
+it('Burn - should transfer and burn assets', function (done) {
+  var burnTx = {
+    'vin': [
+      {
+        'assets': [
+          {
+            'assetId': 'A',
+            'amount': 6,
+            'issueTxid': 'aaa',
+            'divisibility': 0,
+            'lockStatus': false,
+            'aggregationPolicy': 'aggregatable'
+          }
+        ]
+      },
+      {
+        'assets': [
+          {
+            'assetId': 'B',
+            'amount': 6,
+            'issueTxid': 'bbb',
+            'divisibility': 0,
+            'lockStatus': false,
+            'aggregationPolicy': 'aggregatable'
+          }
+        ]
+      },
+      {
+        'assets': [
+          {
+            'assetId': 'C',
+            'amount': 6,
+            'issueTxid': 'ccc',
+            'divisibility': 0,
+            'lockStatus': false,
+            'aggregationPolicy': 'aggregatable'
+          }
+        ]
+      }
+    ],
+    'vout': [{},{},{}],
+    'ccdata': [
+      {
+        'payments': [
+          {
+            'input': 0,
+            'amount': 3,
+            'output': 1,
+            'range': false,
+            'percent': false
+          },
+          {
+            'input': 0,
+            'amount': 2,
+            'percent': false,
+            'burn': true
+          },
+          {
+            'input': 1,
+            'amount': 3,
+            'output': 0,
+            'range': false,
+            'percent': false
+          },
+          {
+            'input': 1,
+            'amount': 2,
+            'burn': true,
+            'percent': false
+          }
+        ],
+        'protocol': 0x4343,
+        'version': 1,
+        'type': 'burn',
+        'multiSig': [
+        ]
+      }
+    ]
+  }
+
+  var res = get_assets_outputs(burnTx)
+  console.log(JSON.stringify(res, null, 2))
+  assert.deepEqual(res, [
+    [
+      {
+        'assetId': 'B',
+        'amount': 3,
+        'issueTxid': 'bbb',
+        'divisibility': 0,
+        'lockStatus': false,
+        'aggregationPolicy': 'aggregatable'      
+      },
+    ],
+    [
+      {
+        'assetId': 'A',
+        'amount': 3,
+        'issueTxid': 'aaa',
+        'divisibility': 0,
+        'lockStatus': false,
+        'aggregationPolicy': 'aggregatable'
+      }
+    ],
+    [
+      {
+        'assetId': 'A',
+        'amount': 1,
+        'issueTxid': 'aaa',
+        'divisibility': 0,
+        'lockStatus': false,
+        'aggregationPolicy': 'aggregatable'
+      },
+      {
+        'assetId': 'B',
+        'amount': 1,
+        'issueTxid': 'bbb',
+        'divisibility': 0,
+        'lockStatus': false,
+        'aggregationPolicy': 'aggregatable'      
+      },
+      {
+        'assetId': 'C',
+        'amount': 6,
+        'issueTxid': 'ccc',
+        'divisibility': 0,
+        'lockStatus': false,
+        'aggregationPolicy': 'aggregatable'
+      }
+    ]
+  ])
+  done()
+})
+
+it('Burn - should transfer all assets to last output when there is an overflow', function (done) {
+  var burnTx = {
+    'vin': [
+      {
+        'assets': [
+          {
+            'assetId': 'A',
+            'amount': 6,
+            'issueTxid': 'aaa',
+            'divisibility': 0,
+            'lockStatus': false,
+            'aggregationPolicy': 'aggregatable'
+          }
+        ]
+      },
+      {
+        'assets': [
+          {
+            'assetId': 'B',
+            'amount': 6,
+            'issueTxid': 'bbb',
+            'divisibility': 0,
+            'lockStatus': false,
+            'aggregationPolicy': 'aggregatable'
+          }
+        ]
+      }
+    ],
+    'vout': [{},{},{}],
+    'ccdata': [
+      {
+        'payments': [
+          {
+            'input': 0,
+            'amount': 3,
+            'output': 1,
+            'range': false,
+            'percent': false
+          },
+          {
+            'input': 0,
+            'amount': 2,
+            'percent': false,
+            'burn': true
+          },
+          {
+            'input': 0,
+            'amount': 2,
+            'output': 0,
+            'range': false,
+            'percent': false
+          }
+        ],
+        'protocol': 0x4343,
+        'version': 1,
+        'type': 'burn',
+        'multiSig': [
+        ]
+      }
+    ]
+  }
+
+  var res = get_assets_outputs(burnTx)
+  console.log(JSON.stringify(res, null, 2))
+  assert.equal(burnTx.overflow, true)
+  assert.deepEqual(res[0], undefined)
+  assert.deepEqual(res[1], undefined)
+  assert.deepEqual(res[2],[
+    {
+      "assetId": "A",
+      "amount": 6,
+      "issueTxid": "aaa",
+      "divisibility": 0,
+      "lockStatus": false,
+      "aggregationPolicy": "aggregatable"
+    },
+    {
+      "assetId": "B",
+      "amount": 6,
+      "issueTxid": "bbb",
+      "divisibility": 0,
+      "lockStatus": false,
+      "aggregationPolicy": "aggregatable"
+    }
+  ])
+  done()
+})
+

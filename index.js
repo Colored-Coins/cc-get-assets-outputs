@@ -7,7 +7,6 @@ module.exports = function (raw_transaction) {
   var ccdata = transaction_data.ccdata[0]
   var assets = []
   if (ccdata.type === 'issuance') {
-    console.log('issuance !')
     transaction_data.vin[0].assets = transaction_data.vin[0].assets || []
     transaction_data.vin[0].assets.unshift({
       assetId: assetIdencoder(transaction_data),
@@ -77,24 +76,26 @@ function transfer (assets, payments, transaction_data) {
     currentAmount = Math.min(payment.amount, currentAsset.amount)
     debug('paying ' + currentAmount + ' ' + currentAsset.assetId + ' from input #' + currentInputIndex + ' asset #' + currentAssetIndex + ' to output #' + payment.output)
 
-    assets[payment.output] = assets[payment.output] || []
-    debug('assets[' + payment.output + '] = ', assets[payment.output])
-    if (lastPaymentIndex === i) {
-      if (!assets[payment.output].length || assets[payment.output][assets[payment.output].length - 1].assetId !== currentAsset.assetId || currentAsset.aggregationPolicy !== 'aggregatable') {
-        debug('tried to pay same payment with a separate asset, overflow')
-        return false
+    if (!payment.burn) {
+      assets[payment.output] = assets[payment.output] || []
+      debug('assets[' + payment.output + '] = ', assets[payment.output])
+      if (lastPaymentIndex === i) {
+        if (!assets[payment.output].length || assets[payment.output][assets[payment.output].length - 1].assetId !== currentAsset.assetId || currentAsset.aggregationPolicy !== 'aggregatable') {
+          debug('tried to pay same payment with a separate asset, overflow')
+          return false
+        }
+        debug('aggregating ' + currentAmount + ' of asset ' + currentAsset.assetId + ' from input #' + currentInputIndex + ' asset #' + currentAssetIndex + ' to output #' + payment.output)
+        assets[payment.output][assets[payment.output].length - 1].amount += currentAmount
+      } else {
+        assets[payment.output].push({
+          assetId: currentAsset.assetId,
+          amount: currentAmount,
+          issueTxid: currentAsset.issueTxid,
+          divisibility: currentAsset.divisibility,
+          lockStatus: currentAsset.lockStatus,
+          aggregationPolicy: currentAsset.aggregationPolicy
+        })
       }
-      debug('aggregating ' + currentAmount + ' of asset ' + currentAsset.assetId + ' from input #' + currentInputIndex + ' asset #' + currentAssetIndex + ' to output #' + payment.output)
-      assets[payment.output][assets[payment.output].length - 1].amount += currentAmount
-    } else {
-      assets[payment.output].push({
-        assetId: currentAsset.assetId,
-        amount: currentAmount,
-        issueTxid: currentAsset.issueTxid,
-        divisibility: currentAsset.divisibility,
-        lockStatus: currentAsset.lockStatus,
-        aggregationPolicy: currentAsset.aggregationPolicy
-      })
     }
     currentAsset.amount -= currentAmount
     payment.amount -= currentAmount
